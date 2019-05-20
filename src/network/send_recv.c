@@ -6,6 +6,7 @@
  */
 #include <unistd.h>
 #include <string.h>
+#include <sys/socket.h>
 #include "send_recv.h"
 
 int send_string(int sockfd, unsigned char *buffer) {

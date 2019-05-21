@@ -13,8 +13,8 @@ C_DEPS :=
 
 # Every subdirectory with source files must be described here
 SUBDIRS := \
-src/handle_tcp_server \
 src \
 src/network \
+src/tcp/server \
 src/utils \
 

@@ -1,6 +1,5 @@
-src/main.o: ../src/main.c ../src/bool.h \
-  ../src/./handle_tcp_server/handle_tcp_server.h
+src/main.o: ../src/main.c ../src/bool.h ../src/./tcp/server/loop.h
 
 ../src/bool.h:
 
-../src/./handle_tcp_server/handle_tcp_server.h:
+../src/./tcp/server/loop.h:

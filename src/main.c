@@ -9,7 +9,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include "bool.h"
-#include "./handle_tcp_server/handle_tcp_server.h"
+#include "./tcp/server/loop.h"
 
 /* Type Defs ******************************************************************/
 
@@ -36,6 +36,9 @@ static const char *optString = "hle:t:p:cu:?";
  */
 static void mainopts_parse(struct mainopts *opts, int argc, char *argv[]);
 
+/*
+ * The following function is used to show the usage.
+ */
 static void usage(void);
 
 /* Main ***********************************************************************/
@@ -48,6 +51,9 @@ int main(int argc, char *argv[]) {
 
 	mainopts_parse(&opts, argc, argv);
 
+	if (opts.listen == TRUE)
+		server_loop(opts.port);
+
 	return 0;
 }
 
@@ -58,47 +64,47 @@ void mainopts_parse(struct mainopts *opts, int argc, char *argv[]) {
 
 	opt = getopt(argc, argv, optString);
 
-		while (opt != -1) {
-			switch(opt) {
-			case 'h':
-				usage();
-				break;
+	while (opt != -1) {
+		switch (opt) {
+		case 'h':
+			usage();
+			break;
 
-			case 'l':
-				opts->listen = TRUE;
-				break;
+		case 'l':
+			opts->listen = TRUE;
+			break;
 
-			case 'e':
-				opts->execute = optarg;
-				break;
+		case 'e':
+			opts->execute = optarg;
+			break;
 
-			case 't':
-				opts->target = optarg;
-				break;
+		case 't':
+			opts->target = optarg;
+			break;
 
-			case 'p':
-				opts->port = atoi(optarg);
-				break;
+		case 'p':
+			opts->port = atoi(optarg);
+			break;
 
-			case 'c':
-				opts->command = TRUE;
-				break;
+		case 'c':
+			opts->command = TRUE;
+			break;
 
-			case 'u':
-				opts->upload = TRUE;
-				opts->upload_destination = optarg;
-				break;
+		case 'u':
+			opts->upload = TRUE;
+			opts->upload_destination = optarg;
+			break;
 
-			case '?':
-				usage();
-				break;
+		case '?':
+			usage();
+			break;
 
-			default:
-				break;
-			}
-
-			opt = getopt(argc, argv, optString);
+		default:
+			break;
 		}
+
+		opt = getopt(argc, argv, optString);
+	}
 }
 
 void usage(void) {
